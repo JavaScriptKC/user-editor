@@ -1,0 +1,14 @@
+extends layout
+
+block content
+   table
+      tr
+         th Name
+         th Email
+         th Actions
+      each user in users
+         tr
+            td= user.firstName + " " + user.lastName
+            td= user.emailAddress
+            td edit - remove
+
