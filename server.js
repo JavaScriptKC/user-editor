@@ -9,6 +9,7 @@ var server = new Server('localhost', 27017);
 var db = new Db('nodelabs-users', server, { safe: true });
 
 app.engine('jade', require('jade').__express);
+app.use(express.static('public'));
 
 require('./routes/index.js')(app, db);
 
