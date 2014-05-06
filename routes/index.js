@@ -17,4 +17,31 @@ module.exports = function (app, db) {
          });
       });
    });
+
+   app.post('/user/remove', function (req, res) {
+      var id = req.body.id;
+      db.collection('nodelabs-users', function (err, collection) {
+         collection.remove({ _id: ObjectID(id) }, function (err, numRemoved) {
+            res.redirect('/');
+         });
+      });
+   });
+
+   app.post('/user/save', function (req, res) {
+      var id = req.body.id;
+      db.collection('nodelabs-users', function (err, collection) {
+
+         var saveQuery =  {
+            $set: {
+               firstName: req.body.firstName,
+               lastName: req.body.lastName,
+               emailAddress: req.body.emailAddress
+            }
+         };
+
+         collection.update({ _id: ObjectID(id) }, saveQuery, function (err) {
+            res.redirect('/user/' + id);
+         });
+      });
+   });
 };
